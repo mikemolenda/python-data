@@ -1,3 +1,5 @@
+import collections
+
 moby = []
 
 with open('../data/text/moby_dick.txt', newline='') as text:
@@ -13,6 +15,18 @@ with open('../data/text/moby_dick.txt', newline='') as text:
 #     print(moby[line])
 
 # extract chapter names
+# for line in moby:
+#     if line.upper().startswith('CHAPTER'):
+#         print(line)
+
+# Find the most frequent word
+words = []
+
+trans_table = str.maketrans(';:,.?!-', '       ')
+
 for line in moby:
-    if line.upper().startswith('CHAPTER'):
-        print(line)
+    words.extend(line.lower().translate(trans_table).split())
+
+word_count = collections.Counter()
+word_count.update(words)
+print(word_count.most_common())
